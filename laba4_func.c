@@ -53,6 +53,10 @@ void delete_dictionary(dictionary* dict){
 }
 
 void add_elem(dictionary *dict, char *key, void *value, size_t size, types type){
+    if(find_elem(dict, key)){
+        delete_elem(dict, key);
+        dict->len--;
+    }
     dict->len++;
     dict->array = (keyvalue **)realloc(dict->array, dict->len * sizeof(keyvalue *));
     dict->array[dict->len - 1] = create_keyvalue(key, value, size, type);
